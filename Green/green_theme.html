@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, user-scalable=false;">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/2.0/animate.min.css" media="all" rel="stylesheet" type="text/css" /> 
+  <link href="//getbootstrap.com/2.3.2/assets/css/bootstrap.css" media="all" rel="stylesheet" type="text/css" /> 
+  <link href="//getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" media="all" rel="stylesheet" type="text/css" /> 
+  <style>
+    body{
+      background-color:#60cdb5;
+      text-rendering: optimizeLegibility;
+      color:#2D3234;
+      font-weight:200;
+    }
+    .skills{
+      font-weight:200;
+     }
+  </style>
+
+  <title> {{profile.first_name}} {{profile.last_name}} &middot; Proficient.IO </title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span10 offset1">
+          <h1 id="name_a">{{profile.first_name}} {{profile.last_name}}</h1>
+          <p class="lead" id="headline_a">{{profile.headline}}</p>
+          {% if profile.user.skills != empty %}
+            {% for skill in profile.user.skills %}
+              <span class="skills badge">{{ skill.skill_name}}</span>&nbsp;&nbsp;&nbsp;           
+            {% endfor %}
+          {% endif %}
+
+          <hr>
+          {% if profile.summary != empty %}
+            <p id="summary_a">{{profile.summary |  newline_to_br}}</p>
+            <hr>
+          {% endif %}
+
+
+          {% if profile.user.positions != empty %}
+            <h2>Work Experience</h2>
+            {% for position in profile.user.positions %}
+              <h3>
+                {{ position.company_name }} <span class="muted">{{ position.title }}</span>
+              </h3>
+              <p>{{ position.summary | newline_to_br  }}</p>
+            {% endfor %}
+            <hr>
+          {% endif %}
+
+          {% if profile.user.educations != empty %}
+            <h2>Education</h2>
+            {% for education in profile.user.educations %}
+                <h3>{{ education.school_name }} <span class="muted">{{ education.degree }}</span> </h3>
+                <p>{{ education.notes | newline_to_br  }}</p>
+            {% endfor %}
+            <hr>
+          {% endif %}
+
+
+          {% if profile.user.patents != empty %}
+            <h2>Patents</h1>
+            {% for patent in profile.user.patents %}
+                <h3>{{ patent.title}}</h3>
+                <p>{{ patent.summary | newline_to_br }}</p>
+            {% endfor %}
+            <hr>
+          {% endif %}
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+     $('body').show();
+     $('body').addClass('fadeInUpBig animated');
+
+    $('#name_a').addClass('fadeInUpBig animated');
+    $('#headline_a').addClass('fadeInRightBig animated');
+    $('.skills').addClass('bounceIn animated');  
+  
+  </script>   
+</html>
